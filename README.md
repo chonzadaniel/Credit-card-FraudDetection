@@ -99,17 +99,82 @@ Dataset is loaded -- creating a DataFrame using the Pandas library through a rea
 Using train_test_split() method imported from sklearn.model_selection was able to store X_train, y_train, X_test, y_test sets
 
 # Model Selection:
-## Given the nature of the problem statement, dataset, and required project procedures, the eXtreme Gradient Boost (XGBoost) model was selected among other models, which are capable of conducting predictions on binary classes. Below are a few summarized factors:
-*  Nature of Dataset (imbalanced) whereby XGBClassifier() performs overall best comparatively.
-* Model flexibility in case:
-  * Regularization techniques required.
-  * Handling of missing data the case.
-  * Model interpretability ability to plot feature importance, confusion matrix, and classification report.
-  * Scalability of the model as the model could handle large dataset clients may have.
-  * Community support making reliability to access key information for future model usability and improvement.
+## Criteria for Model Selection
+* Model Performance Metrics: precision, recall, f1-score, and accuracy
+* Availability of feature importance visualization per specific model
+* Model Computational Efficiency
+* Model Scalability
+* Usability
+
+## Models Created
+* XGBoost
+* Logistic Regression
+* KNN
+* SVM
+
+## Model Selection Considerations
+### 1. Models Performance Metrics
+
+* Based on the four model performance metrics, logistic regression model is eliminated in the consideration as its metrics after applying the hyperparamenter tuning remained below 100% even though it met the project shreshold of > 75% Accuracy. 
+***
+
+* Hence, XGBoost, KNN, and SVM models further compared in choosing the best as all perform at 100% accuracy
+
+### 2. Availability of Feature Importance Visualization:
+
+* XGBoost (xgb): XGBoost provides feature importance scores, which can be visualized to understand the impact of each feature on the model's predictions. This makes it convenient for interpreting and explaining the model's behavior.
+
+* Support Vector Machine (svm): SVMs typically do not have built-in feature importance scores. While there are ways to interpret SVMs, the lack of direct feature importance visualization may make it less convenient in this aspect.
+
+* K-Nearest Neighbors (knn): KNN also lacks direct feature importance scores. Interpreting the importance of features in KNN can be more challenging compared to models like XGBoost.
+
+***
+* Conclusion: XGBoost would be more convenient for feature importance visualization.
+
+### 3. Model Computational Efficiency:
+
+* XGBoost (xgb): XGBoost is known for its computational efficiency. It is optimized for speed and performance, making it a popular choice in various machine learning tasks.
+
+* Support Vector Machine (svm): SVMs can be computationally expensive, especially with large datasets. The training time may increase significantly with the size of the dataset.
+
+* K-Nearest Neighbors (knn): KNN is instance-based and can be computationally intensive, especially during prediction when it needs to find the nearest neighbors for each query point.
+***
+
+* Conclusion: XGBoost is likely to be more computationally efficient than SVM and KNN.
+
+
+### 4. Model Scalability:
+
+* XGBoost (xgb): XGBoost is designed for scalability and can handle large datasets efficiently. It is often used in real-world applications with big data.
+
+* Support Vector Machine (svm): SVMs may face scalability challenges, especially with large datasets. Training SVMs on very large datasets might require substantial computational resources.
+
+* K-Nearest Neighbors (knn): KNN does not scale well with large datasets, as it requires computing distances to all data points.
+
+***
+* Conclusion: XGBoost is more scalable compared to SVM and KNN.
+
+### 5. Usability:
+
+* XGBoost (xgb): XGBoost is user-friendly and widely used in both industry and competitions. It has a rich set of parameters and is well-documented.
+
+* Support Vector Machine (svm): SVMs can be powerful but may require careful parameter tuning. The choice of kernel and regularization parameters can affect performance.
+
+* K-Nearest Neighbors (knn): KNN is simple to understand and implement but may not be as user-friendly as XGBoost.
+***
+
+* Conclusion: XGBoost is generally considered more user-friendly than SVM and KNN.
+
+***
+
+### Considering all factors above, XGBoost Model outweighs KNN and SVM models. Hence, selected most convenient based on the specified criteria of feature importance visualization, computational efficiency, scalability, and usability.
+
+***
+
+# Hence, only XGBoost Model algorithm is covered in the README
 
 # Building the Model, Training, and Testing:
-## Model Algorith
+## Model Algorithm
 
 <img src="https://www.mdpi.com/applsci/applsci-12-02126/article_deploy/html/images/applsci-12-02126-g003-550.jpg">
 
