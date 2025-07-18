@@ -1,0 +1,9 @@
+numpy
+pandas
+seaborn
+matiplotlib
+imbalanced-learn
+scikit-learn
+sweetviz
+xgboost
+joblib
