@@ -64,11 +64,14 @@ The pipeline proceeds through the following stages:
 5. Model Training & Evaluation
 - Four classifiers are trained and evaluated on the selected features:
 
- Model	---------    Precision (Fraud)	-----  Recall (Fraud) -----	 F1-Score (Fraud)	----  ROC AUC
-Logistic Regression	   0.04	                        0.50	             0.07	              0.5555
-Random Forest	       1.00	                        0.75	             0.86	              0.8648
-Decision Tree	       0.33	                        0.50	             0.40	              0.7494
-XGBoost	               0.38	                        0.75	             0.50	              0.7771
+## Model Performance on Fraud Class
+
+| Model                | Precision (Fraud) | Recall (Fraud) | F1-Score (Fraud) | ROC AUC |
+|----------------------|-------------------|-----------------|------------------|---------|
+| Logistic Regression  | 0.04              | 0.50            | 0.07             | 0.5555  |
+| Random Forest        | 1.00              | 0.75            | 0.86             | 0.8648  |
+| Decision Tree        | 0.33              | 0.50            | 0.40             | 0.7494  |
+| XGBoost              | 0.38              | 0.75            | 0.50             | 0.7771  |
 
 
 - Metrics are focused on the fraud class (minority) since detecting frauds correctly is the priority.
