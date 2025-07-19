@@ -14,209 +14,96 @@ A credit card is one of the most used financial products to make online purchase
 # Project Objective:
 To build a Machine Learning classification model with a Classifier to predict whether a creditcard transaction is fraudulent or not. The project aims at testing the personal skills in Machine Learning Model building aiming at building a classifier with a predictive power with accuracy above 75%.
 
-# Programming Language used:
-Python language is used throughout the project.
+# Credit Card Fraud Detection Pipeline
 
-# Project Methodology:
-## To Accomplish the Project Below are the Methodological Steps to Follow:
-* Data Collection.
-* Exploratory Data Analysis: Analyze and understand the data to identify patterns, relationships, and trends in the data by using Descriptive Statistics and Visualizations.
-* Data Cleaning: This might include standardization, handling the missing values and outliers in the data.
-* Dealing with Imbalanced data: This data set is highly imbalanced. The data should be balanced using the appropriate methods before moving onto model building.
-* Feature Engineering: Create new features or transform the existing features for better performance of the ML Models.
-* Model Selection: Choose the most appropriate model that can be used for this project.
-* Model Training: Split the data into train & test sets and use the train set to estimate the best model parameters.
-* Model Validation: Evaluate the performance of the model on data that was not used during the training process. The goal is to estimate the model's ability to generalize to new, unseen data and to identify any issues with the model, such as overfitting.
-* Model Deployment: Model deployment is the process of making a trained machine learning model available for use in a production environment.
+## Project Overview
+This project develops a robust machine learning pipeline for credit card fraud detection, leveraging a highly imbalanced dataset. Detecting fraudulent transactions is crucial for financial institutions to minimize monetary losses and protect customer assets. The pipeline trains multiple models, performs feature selection, addresses data imbalance, and selects the best-performing model for deployment.
 
-# Data and Data Source:
-## Data Source:
-Creditcard records collected for the two-day transactions in Europe whereby the dataset is provided by KnowledgeHud upGrad as one of the choices among many project concepts learners to consider.
+## Key Challenges Addressed
+- Handling class imbalance between fraud and non-fraud transactions
 
-## Nature of Data:
-The dataset contains transactions made by credit cards in September 2013 by European cardholders. This dataset presents transactions that occurred in two days, where 492 frauds out of 284,807 transactions were identified.
-The dataset has got the following features:
-* V1, through to V28 (28 features): Represent the continous variables a credit card transaction recorded over the two days.
-* Amount: respresents the credit card amount transacted.
-* Time: represents the time a credit card transaction was executed across the two days.
-* Class: this represents the target feature (binary classes where 0 respresents safe credidt card transactions while 1 represents fraudulent credit card transactions).
-* Hence, dataset containing 31 features whereby 30 being explanatory features.
+- Selecting the most predictive features for model efficiency and interpretability
 
-# Loading of Dataset:
-Dataset is loaded -- creating a DataFrame using the Pandas library through a read_csv() method.
+- Preventing data leakage to ensure realistic model evaluation
 
-# Handling the Imbalanced Dataset of the "Class" binary values
+- Fine-tuning and comparing multiple classification models for optimal fraud detection
 
+## 📊 Dataset
+- The dataset (sampled_creditcard.csv) is a sampled subset derived from the public Kaggle Credit Card Fraud Detection dataset. It contains:
 
-## Checking for successful dataset loading using a few methods:
-* df.columns: nowing the column labels.
-* df.shape: checks for number of rows and columns.
-* df.sample(n): provides a random n rows of DataFrame.
-* df.head(): prints the first five rows of the DataFrame.
-* df.tail(): prints the last five rows of the DataFrame.
+- Anonymized features: V1, V2, ..., V28
 
-# Handling the Imbalanced Dataset Right Away to Avoid issues when performing EDA whereby the Synthetic Minority Over-sampling Technique (SMOTE) is preferred
-* SMOTE is a technique used to address class imbalance in machine learning datasets.
-* Class imbalance: occurs when one class of the target variable has significantly fewer samples compared to another class, which can lead to a biased or poorly performing model.
-* SMOTE is a popular method for addressing this issue as explained below:
-  ## Key SMOTE Strengthes:
-  * Identify the Minority Class: In a dataset with class imbalance, SMOTE focuses on the minority class.
-  * Generate Synthetic Samples: SMOTE works by generating synthetic samples for the minority class. It does this by selecting a sample from the minority class and finding its k-nearest neighbors within that class.
-  * Interpolation: Once the nearest neighbors are identified, SMOTE creates synthetic samples by interpolating between the selected sample and its neighbors. The synthetic samples are created by selecting a fraction of the distance between the selected sample and each of its neighbors.
-  * Balance the Classes: By generating synthetic samples for the minority class, SMOTE helps balance the class distribution. This makes the dataset more balanced and prevents the model from being biased toward the majority class.
-  * After Experimenting both the Undersampling and OverSampling Methods/techniques, it turned out that SMOTE was working well on the model performance, hence chosen.
+- Transaction Amount
 
-## Concatenating the SMOTE resampled X and Y features to recover a DataFrame
-* df = pd.concat() method was applied.
-  
-# Conducting Exploratory Data Analysis (EDA) to see trends and patterns about the dataset features:
-## Features pairwise correlation with target 'Class':
-* Used sv.analyze() method after importing the library sweetviz as sv.
-* Then a report is stored using the show_notebook() method.
+- Target variable Class:
 
-## Investigating the Report above:
-* Checking for Datatypes.
-* Checking for Missing Values (Isnull).
-* Checked for duplicates and unique values.
-* Checked for features' Minimum and Maximum values.
-* Conducted Time conversion to get the correct time format (from the numeric) to the date-time format using to_datetime() method.
-* Visualized the Time column plotting a Histogram to find out the time distribution on transactions.
-* Visualized transactions Amount to spot outliers.
-* Visualized Transaction Amount vs Target ('Class') using Seaborn library.
-* Visualized pairwise correlation across features.
-* Visualized the distribution of the Class values using Matplotlib.pyplot as plt (pie chart) to confirm the imbalanced dataset.
+  - `0` — Non-fraudulent transaction
 
-# Performing Feature Transformation as Preparation for the Machine Learning Model to Efficiently train:
-## Performing Feature Encoding
-* Converted Time to binary value 0 and 1 integer datatype after clustering into two
-* After all features were in float and integer datatypes, realized all float datatypes were in range above 1 value, hence need for scaling [0 & 1].
+  - `1` — Fraudulent transaction (minority class)
 
-## Features Engineering/Features Transformation
-* Except for Time and Class features, which already were in binary format with integer datatype, the rest of features required transformation by scalling down continuous values to limiting them to between 0 and 1 uning the MinMaxScaler() method supported by the sklearn.preprocessing library.
-* A preprocessor variable for the ColumnTransformer was created as well before a Machine Learning Model being built.
+**Note:** The dataset is highly imbalanced with very few fraud cases, posing a challenge for traditional classification.
 
-## Performed X_train, y_train split:
-Using train_test_split() method imported from sklearn.model_selection was able to store X_train, y_train, X_test, y_test sets
+## Pipeline Workflow
+The pipeline proceeds through the following stages:
 
-# Model Selection:
-## Criteria for Model Selection
-* Model Performance Metrics: precision, recall, f1-score, and accuracy
-* Availability of feature importance visualization per specific model
-* Model Computational Efficiency
-* Model Scalability
-* Usability
+1. Data Loading & Preprocessing
+- Loads data from CSV.
+- Engineers additional time-based features (Hour, PartOfDay).
+- Standardizes feature values using StandardScaler.
 
-## Models Created
-* XGBoost
-* Logistic Regression
-* KNN
-* SVM
+2. Train-Test Split
+- Stratified split to preserve class distribution.
 
-## Model Selection Considerations
-### 1. Models Performance Metrics
+3. Imbalance Handling
+- Applies SMOTE (Synthetic Minority Oversampling Technique) only on training data to generate synthetic minority class samples, avoiding data leakage.
 
-* Based on the four model performance metrics, logistic regression model is eliminated in the consideration as its metrics after applying the hyperparamenter tuning remained below 100% even though it met the project shreshold of > 75% Accuracy. 
-***
+4. Feature Selection
+- Fits a Random Forest classifier on training data to compute feature importances.
+- Selects top 19 features (configurable via TOP_N_FEATURES).
 
-* Hence, XGBoost, KNN, and SVM models further compared in choosing the best as all perform at 100% accuracy
+5. Model Training & Evaluation
+- Four classifiers are trained and evaluated on the selected features:
 
-### 2. Availability of Feature Importance Visualization:
-
-* XGBoost (xgb): XGBoost provides feature importance scores, which can be visualized to understand the impact of each feature on the model's predictions. This makes it convenient for interpreting and explaining the model's behavior.
-
-* Support Vector Machine (svm): SVMs typically do not have built-in feature importance scores. While there are ways to interpret SVMs, the lack of direct feature importance visualization may make it less convenient in this aspect.
-
-* K-Nearest Neighbors (knn): KNN also lacks direct feature importance scores. Interpreting the importance of features in KNN can be more challenging compared to models like XGBoost.
-
-***
-* Conclusion: XGBoost would be more convenient for feature importance visualization.
-
-### 3. Model Computational Efficiency:
-
-* XGBoost (xgb): XGBoost is known for its computational efficiency. It is optimized for speed and performance, making it a popular choice in various machine learning tasks.
-
-* Support Vector Machine (svm): SVMs can be computationally expensive, especially with large datasets. The training time may increase significantly with the size of the dataset.
-
-* K-Nearest Neighbors (knn): KNN is instance-based and can be computationally intensive, especially during prediction when it needs to find the nearest neighbors for each query point.
-***
-
-* Conclusion: XGBoost is likely to be more computationally efficient than SVM and KNN.
+ Model	---------    Precision (Fraud)	-----  Recall (Fraud) -----	 F1-Score (Fraud)	----  ROC AUC
+Logistic Regression	   0.04	                        0.50	             0.07	              0.5555
+Random Forest	       1.00	                        0.75	             0.86	              0.8648
+Decision Tree	       0.33	                        0.50	             0.40	              0.7494
+XGBoost	               0.38	                        0.75	             0.50	              0.7771
 
 
-### 4. Model Scalability:
+- Metrics are focused on the fraud class (minority) since detecting frauds correctly is the priority.
+- F1-Score balances precision and recall, critical due to imbalanced classes.
+- ROC AUC measures overall discriminative ability.
 
-* XGBoost (xgb): XGBoost is designed for scalability and can handle large datasets efficiently. It is often used in real-world applications with big data.
+6. Model Selection & Saving
+- The Random Forest model achieved the best F1-Score (0.86) and ROC AUC (0.86) on the test set.
+- This model, along with the scaler, encoder, and selected features list, is saved using joblib for later deployment.
 
-* Support Vector Machine (svm): SVMs may face scalability challenges, especially with large datasets. Training SVMs on very large datasets might require substantial computational resources.
+## Results Summary
+- Random Forest outperforms others by a significant margin in both fraud detection F1-score and ROC AUC, demonstrating better precision and recall trade-offs.
+- Logistic Regression struggles with low precision despite decent recall.
+- Decision Tree and XGBoost show moderate performance but lag behind Random Forest.
+- The model comparison underscores the importance of tree-based ensemble methods in handling class imbalance and complex feature interactions in fraud detection.
 
-* K-Nearest Neighbors (knn): KNN does not scale well with large datasets, as it requires computing distances to all data points.
+## Usage & Requirements
+- Python 3.12 environment recommended.
+- Required libraries are listed in requirements.txt.
 
-***
-* Conclusion: XGBoost is more scalable compared to SVM and KNN.
+## Install dependencies via:
+- bash: `pip install -r requirements.txt`
+Running the Pipeline
+- bash: `python fraud-detection-main.py`
 
-### 5. Usability:
+## The script will:
+- Load and preprocess data
+- Train models with SMOTE-augmented training data
+- Evaluate models and print classification reports
+- Save the best model (best_model_RandomForest.joblib), scaler, encoder, and feature list
+- Save a feature importance plot (feature_importances.png)
+- Save top feature importances in pickle and JSON formats
 
-* XGBoost (xgb): XGBoost is user-friendly and widely used in both industry and competitions. It has a rich set of parameters and is well-documented.
+## Contact & Contribution
+- Developed by Emmanuel Daniel Chonza
+- For questions or collaborations, please reach out.
 
-* Support Vector Machine (svm): SVMs can be powerful but may require careful parameter tuning. The choice of kernel and regularization parameters can affect performance.
-
-* K-Nearest Neighbors (knn): KNN is simple to understand and implement but may not be as user-friendly as XGBoost.
-***
-
-* Conclusion: XGBoost is generally considered more user-friendly than SVM and KNN.
-
-***
-
-### Considering all factors above, XGBoost Model outweighs KNN and SVM models. Hence, selected most convenient based on the specified criteria of feature importance visualization, computational efficiency, scalability, and usability.
-
-***
-
-# Hence, only XGBoost Model algorithm is covered in the README
-
-# Building the Model, Training, and Testing:
-## Model Algorithm
-
-<img src="https://www.mdpi.com/applsci/applsci-12-02126/article_deploy/html/images/applsci-12-02126-g003-550.jpg">
-
-Source: https://www.mdpi.com/2076-3417/12/4/2126
-
-## Model Dependencies/Requirements:
-* Python Programming Language: for coding
-* xgboost: for building the model classifier
-* scikit-learn: for building the model estimator
-* pandas: for loading dataset
-* numpy: for numeric calcumlation across code snippets
-* matplotlib: for image/plots/charts during training, and testing
-* seaborn: for image/plots/charts -- confusion matrix
-* argparse: provides command-line arguments and options in defining training scripts.
-  
-## Building the XGBoost Model Classifier:
-* The XGBoost classifier was built using the XGBClassier() methond imported from xgboost.
-## Creating the Model Pipeline
-* From the imported Pipeline, the model pipeline was created using the pipeline() method where the preprocessing variable early created and the XGBoost classifiers wrapped in.
-
-## Model Training:
-* The build XGBoost model pipleline was then training whereby X_train, y_train set wrapped in.
-* Then prediction made (y_pred) of the model pipeline(X_test) applied
-
-## Checking for model Performance using different Peformance using pandas, accuracy_score, confusion_matrix, classification_report, matplotlib.pyplot, seaborn
-* From both accuracy_score(y_train, y_train_pred) and accuracy_score(y_test, y_pred) methods, model accuracy at training and testing sets could be printed.
-* Plotted confusion matrix.
-* Printed a classification report where accuracy, precision, recall, and f1-score metrics are displayed.
-* Plotting feature importance helped optiminzation of the model combination of features given the order of feature on the plot. Features way at the least order were dropped leading to a well performing model across performance metrics.
-
-## Model Metrics Interpretation
-* Given this project, the minimum (model accuracy threshold) provided is 75%, from which the project should produce accuracy greater than. The model performance on local environment produced: training and testing precision (100%), recall (100%), and f1-score (100%) with both training and testing accuracy consistently at 100%. Hence, we good performing model in determining whether credit card transactions are fraudulents or not.
-
-## Model Hyperparameter Fine-tuning:
-* On local environment, there was less hyperparameter fine-tuning improvement on the overall model performance. Hence, for efficiency and computional reasons, is important to use less parameters as optimal as possible as similar results will be achieved.
-
-# Model Usability:
-* The use of the model is very simple becuase it does not require hyperparamenter fine-tuning. Hence, computation time and cost minimized.
-* Potential for Cost Savings: Using this model by the Bank may save money in preventing fraudulent transactions. It can also improve customer satisfaction by reducing the number of legitimate transactions incorrectly flagged as fraudulent.
-* Model Resilience and reliability. This model may maintain its fraudulent predictive power (performance) on unseen data, which is important in a real-world setting where  transactions distribution changes over time.
-* Monitoring and Adaptation: Even with a high-performing model, it's essential to continuously monitor its performance and adapt it as needed. Fraudsters can change their tactics, and the model should be updated to address evolving threats related to creditcards' transactions.
-* Customer Communication: In the banking domain, clear communication with customers is essential. Customers should be informed about the bank's fraud detection methods and how they can protect themselves. An overzealous fraud detection system may sometimes lead to customer inconvenience.
-* Marketing Strategy: The bank may use the high-performance model promoting itself as a secure place to conduct financial transactions, emphasizing the commitment to protecting customers from fraud.
-* Regulatory Compliance: Ensure that the model complies with relevant regulations and data privacy laws. Transparency in model development and usage is critical.
-* Education and Training: Continuously educating and training the Bank employees on how to use and interpret the model results, as well as how to take appropriate actions when fraud is suspected.
+**Note:** This pipeline is designed for experimentation and prototyping. Further tuning, cross-validation, and deployment considerations are recommended before production use.
